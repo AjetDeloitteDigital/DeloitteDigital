@@ -9,6 +9,8 @@
         <members>WebinarTeamTriggerHandler</members>
         <members>WebinarTrigger</members>
         <members>WebinarTriggerHandler</members>
+        <members>WebinarTeamTriggerTest</members>
+        <members>WebinarTriggerTest</members>
         <name>ApexClass</name>
     </types>
     <types>
