@@ -32,7 +32,7 @@ public with sharing class WebinarTeamTriggerHandler {
         }*/
         update webinarMap.values();
         }
-    public void removeParticipantsAutomatically(List<Webinar_Team_Member__c> webinarTeamMembers){
+   /* public void removeParticipantsAutomatically(List<Webinar_Team_Member__c> webinarTeamMembers){
         Set<Id> webId=new Set<Id>();
         for(Webinar_Team_Member__c webTeam:webinarTeamMembers){
             webId.add(webTeam.Related_Webinar__c);
@@ -43,7 +43,7 @@ public with sharing class WebinarTeamTriggerHandler {
             webinarMap.get(webTeam.Related_Webinar__c).Number_of_Participants__c-=1;
         }
         update webinarMap.values();
-    }
+    }*/
     //4-
     public void contactOnlyInExternalType(List<Webinar_Team_Member__c> webinarTeamMembers){
         Set<Id> webId=new Set<Id>();
@@ -82,23 +82,17 @@ public with sharing class WebinarTeamTriggerHandler {
     //10-
     public void twoWebinarTeamMembersWithTheSameFields(List<Webinar_Team_Member__c> webinarTeamMember){
         List<Webinar_Team_Member__c> webinarTeam=[SELECT Related_User__c,Related_Contact__c,Related_Webinar__c from Webinar_Team_Member__c];
-        boolean condition=false;
         for(Webinar_Team_Member__c webTeamMember: webinarTeamMember){
             for(Webinar_Team_Member__c webTeam: webinarTeam){
-                if(webTeam.Related_Contact__c == webTeamMember.Related_Contact__c
-                        && webTeam.Related_User__c == webTeamMember.Related_User__c
+                if((webTeam.Related_Contact__c == webTeamMember.Related_Contact__c
+                        || webTeam.Related_User__c == webTeamMember.Related_User__c)
                         && webTeam.Related_Webinar__c == webTeamMember.Related_Webinar__c
-                        && webTeam.Related_Contact__c != null && webTeam.Related_User__c != null
-                        && webTeamMember.Related_Contact__c != null&&webTeamMember.Related_User__c != null
-                        && webTeam.Related_Webinar__c != null && webTeamMember.Related_Webinar__c !=null){
+                        ){
                     webTeamMember.addError('The Fields Contact and Use should NOT be the same as the other Web Team Member record');
-                   condition=true;
                     break;
                 }
             }
-            if(condition){
-                break;
-            }
+
         }
     }
 }
