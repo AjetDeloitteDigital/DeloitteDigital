@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>53.0</apiVersion>
+    <assignments>
+        <name>Get_Time_To_Give_Text</name>
+        <label>Get Time To Give Text</label>
+        <locationX>360</locationX>
+        <locationY>215</locationY>
+        <assignmentItems>
+            <assignToReference>GiveText</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>NewApi</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <interviewLabel>Date To Text {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Date To Text</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>234</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Get_Time_To_Give_Text</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>NewApi</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;p&gt;{!GetDate}&lt;/p&gt;</text>
+    </textTemplates>
+    <variables>
+        <name>GetDate</name>
+        <dataType>DateTime</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>GiveText</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+</Flow>

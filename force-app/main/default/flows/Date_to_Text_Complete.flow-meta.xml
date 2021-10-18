@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>53.0</apiVersion>
+    <interviewLabel>Date to Text Complete {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Date to Text Complete</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <screens>
+        <name>Display_Text</name>
+        <label>Display Text</label>
+        <locationX>341</locationX>
+        <locationY>321</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>DisplayText</name>
+            <fieldText>&lt;p&gt;This is the new text derived from date/time: {!New_Date_To_Text.GiveText}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Input_Date_time</name>
+        <label>Input Date/time</label>
+        <locationX>174</locationX>
+        <locationY>204</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>New_Date_To_Text</targetReference>
+        </connector>
+        <fields>
+            <name>Insert_Date_Time</name>
+            <dataType>DateTime</dataType>
+            <fieldText>Insert Date/Time</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Input_Date_time</targetReference>
+        </connector>
+    </start>
+    <status>Draft</status>
+    <subflows>
+        <name>New_Date_To_Text</name>
+        <label>New Date To Text</label>
+        <locationX>161</locationX>
+        <locationY>319</locationY>
+        <connector>
+            <targetReference>Display_Text</targetReference>
+        </connector>
+        <flowName>Date_To_Text</flowName>
+        <inputAssignments>
+            <name>GetDate</name>
+            <value>
+                <elementReference>Insert_Date_Time</elementReference>
+            </value>
+        </inputAssignments>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </subflows>
+</Flow>

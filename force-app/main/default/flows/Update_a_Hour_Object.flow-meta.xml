@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>53.0</apiVersion>
+    <assignments>
+        <name>Assign_the_value</name>
+        <label>Assign the value</label>
+        <locationX>518</locationX>
+        <locationY>291</locationY>
+        <assignmentItems>
+            <assignToReference>Get_Project.Number_of_All_Submitted_Hours__c</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>$Record.Number_Of_Hours__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_the_project</targetReference>
+        </connector>
+    </assignments>
+    <interviewLabel>Update a Hour Object {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Update a Hour Object</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Project</name>
+        <label>Get Project</label>
+        <locationX>381</locationX>
+        <locationY>336</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Assign_the_value</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Project__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Arte_Project__c</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Number_of_All_Submitted_Hours__c</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_the_project</name>
+        <label>Update the project</label>
+        <locationX>671</locationX>
+        <locationY>288</locationY>
+        <inputReference>Get_Project</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>252</locationX>
+        <locationY>37</locationY>
+        <connector>
+            <targetReference>Get_Project</targetReference>
+        </connector>
+        <object>Hours__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Obsolete</status>
+</Flow>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <apiVersion>53.0</apiVersion>
+    <choices>
+        <name>BuyingNewProduct</name>
+        <choiceText>Buying a new Product</choiceText>
+        <dataType>String</dataType>
+    </choices>
+    <choices>
+        <name>Other</name>
+        <choiceText>Other</choiceText>
+        <dataType>String</dataType>
+    </choices>
+    <choices>
+        <name>ReturnigAProduct</name>
+        <choiceText>Returning a Product</choiceText>
+        <dataType>String</dataType>
+    </choices>
+    <dynamicChoiceSets>
+        <name>TheTypeOfProduct</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>Kind_of_Product__c</picklistField>
+        <picklistObject>Product2</picklistObject>
+    </dynamicChoiceSets>
+    <interviewLabel>Costumer Receipt Creator {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Costumer Receipt Creator</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <screens>
+        <name>Costumer_Service_Script</name>
+        <label>Costumer Service Script</label>
+        <locationX>184</locationX>
+        <locationY>368</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>Options_on_Product</name>
+            <choiceReferences>BuyingNewProduct</choiceReferences>
+            <choiceReferences>ReturnigAProduct</choiceReferences>
+            <choiceReferences>Other</choiceReferences>
+            <dataType>String</dataType>
+            <defaultSelectedChoiceReference>BuyingNewProduct</defaultSelectedChoiceReference>
+            <fieldText>Options on Product</fieldText>
+            <fieldType>RadioButtons</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Type_Of_Product</name>
+            <choiceReferences>TheTypeOfProduct</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>What Type of Product</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Description</name>
+            <defaultValue>
+                <stringValue>Insert a Description of the costumer</stringValue>
+            </defaultValue>
+            <fieldText>Description</fieldText>
+            <fieldType>LargeTextArea</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Do_they_have_their_receipt</name>
+            <dataType>Boolean</dataType>
+            <fieldText>Do they have their receipt?</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <visibilityRule>
+                <conditionLogic>or</conditionLogic>
+                <conditions>
+                    <leftValueReference>ReturnigAProduct</leftValueReference>
+                    <operator>WasSelected</operator>
+                    <rightValue>
+                        <booleanValue>true</booleanValue>
+                    </rightValue>
+                </conditions>
+                <conditions>
+                    <leftValueReference>Other</leftValueReference>
+                    <operator>WasSelected</operator>
+                    <rightValue>
+                        <booleanValue>true</booleanValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <fields>
+            <name>Enter_the_receipt_code</name>
+            <dataType>Number</dataType>
+            <fieldText>Enter the receipt code</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <scale>0</scale>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>Do_they_have_their_receipt</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <booleanValue>true</booleanValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Welcome</name>
+        <label>Welcome</label>
+        <locationX>184</locationX>
+        <locationY>210</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Costumer_Service_Script</targetReference>
+        </connector>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Welcome</targetReference>
+        </connector>
+    </start>
+    <status>Draft</status>
+</Flow>

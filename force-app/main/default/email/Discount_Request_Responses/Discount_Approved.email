@@ -1,0 +1,5 @@
+Dear {!Opportunity.OpportunityOwner},
+Good news! Your recent discount request has been approved. Please log in to your org for details.
+Best
+{!Opportunity.OpportunityOwner}
+{!Opportunity.OpportunityOwner}
